@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fibonacciseries.databinding.ActivityMainBinding
+import java.math.BigInteger
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding:ActivityMainBinding
@@ -11,17 +12,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        displaySeries()
+        displaySeries(100)
     }
 
-    fun displaySeries(){
-        var numberList= mutableListOf<Int>(0,1)
-        var sum=0
-        var i=1
-        for (n in 1..100){
-            sum=numberList[i]+numberList[i-1]
-            numberList.add(sum)
-            i++
+    fun displaySeries(size:Int){
+        var numberList= mutableListOf<BigInteger>(BigInteger.ZERO,BigInteger.ONE)
+        while (numberList.size<size){
+            var i=numberList.get(numberList.lastIndex)
+            var j=numberList.get(numberList.lastIndex-1)
+           var sum=i+j
+            numberList.add((sum))
         }
         var numberAdapter=NumbersRecyclerViewAdapter(numberList)
         binding.rvNums.layoutManager=LinearLayoutManager(this)
@@ -32,3 +32,12 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+//fun displaySeries(size:Int){
+//    var numberList= mutableListOf<Int>(0,1)
+//    var sum=0
+//    var i=1
+//    for (n in 1..size){
+//        sum=numberList[i]+numberList[i-1]
+//        numberList.add(sum)
+//        i++
+//    }
